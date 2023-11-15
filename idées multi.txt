@@ -1,0 +1,61 @@
+Versus mode -- Timer de réinitilisation des briques si non mort 
+
+Mode Battle royal coop aller le plus loin avec des briques random 
+
+Objectif du mode Arcade 
+- Tenir le plus longtemps possible 
+- Un palier pour chaque brique detruite
+- Augmentation de la vitesse a chaque palier 
+- Restauration des brique a chaque palier
+
+Mode versus
+- Meme regle que mode arcade 
+- Seul un joueur perd en vie 
+
+Bug barre pour versus+ plus double deplacement + voir ending solo+ touche x
+Rajouter effet visuel
+
+
+
+
+
+
+// Déclarez des variables globales pour suivre l'état des touches
+int keyState[SDL_NUM_SCANCODES] = {0};
+
+
+
+
+// Modifiez votre fonction de gestion des touches pour mettre à jour l'état des touches
+void KeyPressed(SDL_Keycode touche) {
+    // Mettez à jour l'état de la touche appuyée
+    keyState[touche] = 1;
+
+    // Ajoutez votre logique de gestion des touches ici
+
+    // Exemple : déplacez à gauche si Q et D sont appuyées simultanément
+    if (keyState[SDLK_q] && keyState[SDLK_d] && (PauseGame == 1)) {
+        // Logique de déplacement à gauche et à droite simultanément
+    }
+
+    // Exemple : déplacez à gauche si B et N sont appuyées simultanément
+    if (keyState[SDLK_LEFT] && keyState[SDLK_RIGHT] && (PauseGame == 1)) {
+        // Logique de déplacement à gauche et à droite simultanément pour la Barre 2
+    }
+
+    // Ajoutez d'autres conditions en fonction de vos besoins
+
+}
+
+
+
+
+// Modifiez votre fonction de gestion de la touche libérée pour mettre à jour l'état des touches
+void KeyReleased(SDL_Keycode touche) {
+    // Mettez à jour l'état de la touche relâchée
+    keyState[touche] = 0;
+
+    // Ajoutez votre logique de gestion des touches ici
+}
+
+Avec cette approche, vous pouvez ajouter des conditions dans KeyPressed pour vérifier si deux touches différentes sont appuyées simultanément. Vous pouvez ensuite implémenter la logique appropriée en fonction de ces conditions. N'oubliez pas de mettre à jour l'état des touches dans KeyReleased lorsque les touches sont relâchées.

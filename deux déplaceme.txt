@@ -1,0 +1,47 @@
+// Déclarez des variables globales pour suivre l'état des touches
+int keyState[SDL_NUM_SCANCODES] = {0};
+
+
+
+
+// Modifiez
+ votre fonction de gestion des touches pour mettre à jour l'état des touches
+void KeyPressed(SDL_Keycode touche) {
+    // Mettez à jour l'état de la touche appuyée
+    keyState[touche] = 1;
+
+    // Exemple : déplacez à gauche si Q ou D sont appuyées
+    if ((keyState[SDLK_q] || keyState[SDLK_d]) && (PauseGame == 1)) {
+        // Logique de déplacement à gauche et à droite pour la Barre 1
+        if (keyState[SDLK_q] && (xBarre > 0)) {
+            xBarre -= deplTouche;
+        }
+        if (keyState[SDLK_d] && (xBarre < WINDOW_WIDTH - longBarre)) {
+            xBarre += deplTouche;
+        }
+    }
+
+    // Exemple : déplacez à gauche si B ou N sont appuyées
+    if ((keyState[SDLK_LEFT] || keyState[SDLK_RIGHT]) && (PauseGame == 1)) {
+        // Logique de déplacement à gauche et à droite pour la Barre 2
+        if (keyState[SDLK_LEFT] && (xBarre2 > 0)) {
+            xBarre2 -= deplTouche;
+        }
+        if (keyState[SDLK_RIGHT] && (xBarre2 < WINDOW_WIDTH - longBarre2)) {
+            xBarre2 += deplTouche;
+        }
+    }
+
+    // Ajoutez d'autres conditions en fonction de vos besoins
+
+}
+
+
+
+
+// Modifiez votre fonction de gestion de la touche libérée pour mettre à jour l'état des touches
+void KeyReleased(SDL_Keycode touche) {
+    // Mettez à jour l'état de la touche relâchée
+    keyState[touche] = 0;
+
+    // Ajoutez votre logique de gestion des touches ici

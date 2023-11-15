@@ -15,10 +15,6 @@
 
 
 
-
-
-
-
 /*/////////////////////////////////////////Variables\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 /*-----------------------------------------Element de jeux-----------------------------------------*/
@@ -68,6 +64,8 @@ int hauteurBrique;
 int espaceBrique;
 int nbcolonne;
 int nbligne;
+int ytabmulti;
+int xtabmulti;
 
 
 /*-----------------------------------------Gameplay-----------------------------------------*/
@@ -94,6 +92,8 @@ int PauseGame;
 int reinittab;
 int timeinittab;
 int accelPalier;
+int movex;
+int movey;
 
 /*-----------------------------------------Menu-----------------------------------------*/
 
@@ -185,6 +185,10 @@ int timervitesse4;
 int timervitesse5;
 
 
+
+
+
+
 /*////////////////////////////////////////Initialisation des tableaux///////////////////////////////////////*/
 
 void init_tab(){
@@ -228,6 +232,7 @@ void init_tab(){
     }     
       
 }
+
 
 
 /*////////////////////////////////////////Initialisation du jeu///////////////////////////////////////*/
@@ -285,6 +290,9 @@ void init_game(){               //mettre votre code d'initialisation ici
     longBrique = 70;                //Formes des Briques
     hauteurBrique = 50;
 
+    ytabmulti=210;
+    xtabmulti=0;
+
 
 /*-----------------------------------------Gameplay-----------------------------------------*/
 
@@ -313,6 +321,8 @@ void init_game(){               //mettre votre code d'initialisation ici
     reinittab=0;
     timeinittab=0;
     accelPalier=0;
+    movex=0;
+    movey=0;
 
 /*-----------------------------------------Menu-----------------------------------------*/
 
@@ -786,6 +796,7 @@ void drawBrick(){              //Dessin des briques, Rebond des briques, Vie et 
     }
 
 }
+
 void drawBrickMulti(){         //Dessin des briques, Rebond des briques, Vie et Brique touché
 
 
@@ -803,8 +814,8 @@ void drawBrickMulti(){         //Dessin des briques, Rebond des briques, Vie et 
                 else if (vieMulti[i][j]==3){
                     changeColor(246, 101, 250);
                 }
-                xBrique=xEcart+(longBrique+espaceBrique)*i;
-                yBrique=(yEcart+210)+(hauteurBrique+espaceBrique)*j;
+                xBrique=(xEcart+xtabmulti)+(longBrique+espaceBrique)*i;
+                yBrique=(yEcart+ytabmulti)+(hauteurBrique+espaceBrique)*j;
                 drawRect(xBrique,yBrique,longBrique,hauteurBrique);
 
 
@@ -866,6 +877,40 @@ void reninitpalier(){          //Mode arcade reinitialise les briques et change 
         }
 }
 
+void moveBricky(){             //Mouvement des briques en arcade solo
+    if (ytabmulti<260 && movey==0){
+        ytabmulti=ytabmulti+1;
+    }
+    else if (ytabmulti>=260){
+        movey=1;
+    }
+    if (ytabmulti>0 && movey==1){
+        ytabmulti=ytabmulti-1;
+    }
+    else if (ytabmulti<=0){
+        movey=0;
+    }
+
+}
+
+void moveBrickmultiy(){        //Mouvement des briques en arcade solo
+    if (ytabmulti<320 && movey==0){
+        ytabmulti=ytabmulti+1;
+    }
+    else if (ytabmulti>=320){
+        movey=1;
+    }
+    if (ytabmulti>180 && movey==1){
+        ytabmulti=ytabmulti-1;
+    }
+    else if (ytabmulti<=180){
+        movey=0;
+    }
+
+}
+
+
+
 /*/////////////////////////////////////////Menu et Asset\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 
@@ -912,7 +957,10 @@ void drawMenu(){
 
 }
 
+
+
 /*+++++++++++++++++++++++++++++++++++++++Choix histoire+++++++++++++++++++++++++++++++++++++++++++*/
+
 
 /*-----------------------------------------Ecran de mission-----------------------------------------*/
 
@@ -1010,6 +1058,8 @@ void drawVictoire(){
 void drawEnding(){
     sprite(0, 0,"Asset/fin.bmp");
 }
+
+
 /*-----------------------------------------Background-----------------------------------------*/
 
 void drawBackground(){
@@ -1111,6 +1161,8 @@ void drawScore(){
         sprite(0, 75,"Asset/5.bmp");
     }
 }
+
+
 /*+++++++++++++++++++++++++++++++++++++++Choix arcade+++++++++++++++++++++++++++++++++++++++++++*/
 
 void drawMenuarcade(){
@@ -1197,7 +1249,12 @@ void drawExpliVersus(){
 }
 
 
+
+
 /*/////////////////////////////////////////Mode de Jeu\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
+
+
 
 void drawHistoire(){
             
@@ -1242,6 +1299,7 @@ void drawSolo(){
 
             drawBackground();
             drawScore();
+            moveBricky();
             drawBrickMulti();  
             drawBalltraine2();
             drawBalltraine();
@@ -1270,6 +1328,7 @@ void drawCoop(){
         if((PauseGame==1) && (multi>=1)){       //Jeux
             drawBackground();
             drawScore();
+            moveBrickmultiy();
             drawBrickMulti();  
             drawBalltraine2();
             drawBalltraine();
@@ -1301,6 +1360,7 @@ void drawVersus(){
         if((PauseGame==1) && (multi>=1)){       //Jeux
             drawBackground();
             drawScore();
+            moveBrickmultiy();
             drawBrickMulti();  
             drawBalltraine2();
             drawBalltraine();
@@ -1333,6 +1393,8 @@ void drawVersus(){
         }
 
 }
+
+
 
 
 /*/////////////////////////////////////////Jeu\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
@@ -1430,7 +1492,7 @@ void KeyPressed(SDL_Keycode touche){
 
         case SDLK_LEFT:                    //touche b appuyé //Deplacement Barre sur la gauche
             printf("B\n");
-                if ((xBarre2 >= 0) && (PauseGame==1)){                       
+                if ((xBarre2 > 0) && (PauseGame==1)){                       
                     xBarre2=xBarre2-deplTouche;}
             else if (xBarre2 <= 0){
                     xBarre2=0;
@@ -1441,7 +1503,7 @@ void KeyPressed(SDL_Keycode touche){
 
         case SDLK_RIGHT:                   //touche dn appuyé //Deplacement Barre sur la droite
             printf("N\n");
-            if ((xBarre2 <= WINDOW_WIDTH-longBarre2) && (PauseGame==1)){      
+            if ((xBarre2 < WINDOW_WIDTH-longBarre2) && (PauseGame==1)){      
                 xBarre2=xBarre2+deplTouche;
             }
             else if((xBarre2 >= WINDOW_WIDTH-longBarre2) && (PauseGame==1)){
@@ -1472,7 +1534,7 @@ void KeyPressed(SDL_Keycode touche){
 //Deplacement Menu
 
         case SDLK_SPACE:               //touche Espace appuyé //Lance le jeu
-            if ((start==0) && (histoire==0) && (arcade==0)){
+            if ((start==0) && (histoire==0) && (arcade==0) && (multi==0) && (solo==0) && (coop==0) && (versus==0)){
                 printf("space\n");
                 start=start+1;
                 printf("start %d\n",start);
@@ -1484,7 +1546,7 @@ void KeyPressed(SDL_Keycode touche){
                 printf("histoire %d\n",histoire);
             }
 
-            else if ((arcade==0) && (multi==0) && (solo==0) && (coop==0) && (versus==0)){
+            else if ((arcade==0) && (histoire==0) && (multi==0) && (solo==0) && (coop==0) && (versus==0)){
                 printf("space\n");
                 arcade=arcade+1;
                 printf("arcade %d\n",arcade);
