@@ -4,208 +4,211 @@
 #include <unistd.h>
 #include "function.h"
 
-#define WINDOW_WIDTH 500
-#define WINDOW_HEIGHT 700
+#define WINDOW_WIDTH 1080   
+#define WINDOW_HEIGHT 1920
 #define FPS 60
 #define tabMax 18
 
 
 
 
+/*/////////////////////////////////////////Variables\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
+/*-----------------------------------------Element de jeux-----------------------------------*/
+
+            //Variables Balle
+
+    int ballx;
+    int bally;
+    int rayonBall;
+    int vitesseX;
+    int vitesseY;
+
+            //Variables trainé Balle
+
+    int ball2x;
+    int ball2y;
+    int rayonBall2;
+    int ball3x;
+    int ball3y;
+    int rayonBall3;
+
+            //Variables Barre
+
+    int xBarre;
+    int yBarre;
+    int longBarre;
+    int hauteurBarre;
+    int deplTouche;
+    int couleurBarre;
+
+            //Variables Barre2
+
+    int xBarre2;
+    int yBarre2;
+    int longBarre2;
+    int hauteurBarre2;
+    int deplTouche2;
+
+            //Variables Briques
+
+    int xBrique;
+    int yBrique;
+    int xEcart;
+    int yEcart;
+    int longBrique;
+    int hauteurBrique;
+    int espaceBrique;
+    int nbcolonne;
+    int nbligne;
+    int ytabmulti;
+    int xtabmulti;
 
 
+/*-----------------------------------------Gameplay------------------------------------------*/
 
-/*/////////////////////////////////////////Variables\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+            //Vie Briques
 
-/*-----------------------------------------Element de jeux-----------------------------------------*/
+    int viebrique[6][5];
+    int vieMulti[6][5];
+    int i;
+    int j;
+    int nbBrique;
+    int briqueTouche;
+    int nbBriqueMulti;
+    int briqueToucheMulti;
 
-        //Variables Balle
+            //Gameplay
 
-int ballx;
-int bally;
-int rayonBall;
-int vitesseX;
-int vitesseY;
+    int nbvie;
+    int nbvieJ2;
+    int tentative;
+    int tentativeJ2;
+    float diminutionBarre;
+    int PauseGame;
+    int reinittab;
+    int timeinittab;
+    int accelPalier;
+    int movex;
+    int movey;
 
-        //Variables trainé Balle
+/*-----------------------------------------Menu----------------------------------------------*/
 
-int ball2x;
-int ball2y;
-int rayonBall2;
-int ball3x;
-int ball3y;
-int rayonBall3;
-
-        //Variables Barre
-
-int xBarre;
-int yBarre;
-int longBarre;
-int hauteurBarre;
-int deplTouche;
-int couleurBarre;
-
-        //Variables Barre2
-
-int xBarre2;
-int yBarre2;
-int longBarre2;
-int hauteurBarre2;
-int deplTouche2;
-
-        //Variables Briques
-
-int xBrique;
-int yBrique;
-int xEcart;
-int yEcart;
-int longBrique;
-int hauteurBrique;
-int espaceBrique;
-int nbcolonne;
-int nbligne;
-int ytabmulti;
-int xtabmulti;
-
-
-/*-----------------------------------------Gameplay-----------------------------------------*/
-
-        //Vie Briques
-
-int viebrique[6][5];
-int vieMulti[6][5];
-int i;
-int j;
-int nbBrique;
-int briqueTouche;
-int nbBriqueMulti;
-int briqueToucheMulti;
-
-        //Gameplay
-
-int nbvie;
-int nbvieJ2;
-int tentative;
-int tentativeJ2;
-float diminutionBarre;
-int PauseGame;
-int reinittab;
-int timeinittab;
-int accelPalier;
-int movex;
-int movey;
-
-/*-----------------------------------------Menu-----------------------------------------*/
-
-int start;
-int histoire;
-int arcade;
-int solo;
-int multi;
-int coop;
-int versus;
+    int start;
+    int histoire;
+    int arcade;
+    int solo;
+    int multi;
+    int coop;
+    int versus;
 
 
 /*-----------------------------------------Affichage-----------------------------------------*/
 
-        //Gameover
-    
-int xrectGameOver;
-int yrectGameOver;
-int longGameOver;
-int hautGameOver;
+            //Gameover
+        
+    int xrectGameOver;
+    int yrectGameOver;
+    int longGameOver;
+    int hautGameOver;
 
-int xDefaite;
-int yAvaDefaite;
+    int xDefaite;
+    int yAvaDefaite;
 
-int xfin1;
-int xfin2;
-int xfin3;
-int xfin4;
-int xfin5;
-int xfinj1;
-int xfinj2;
+    int xfin1;
+    int xfin2;
+    int xfin3;
+    int xfin4;
+    int xfin5;
+    int xfinj1;
+    int xfinj2;
 
-        //Victoire
-    
-int xrectVictoire;
-int yrectVictoire;
-int longVictoire;
-int hautVictoire;
+            //Victoire
+        
+    int xrectVictoire;
+    int yrectVictoire;
+    int longVictoire;
+    int hautVictoire;
 
-int xVictoire;
-int yAvavictoire;
-int vitVictoire;
-int avavitVictoire;
+    int xVictoire;
+    int yAvavictoire;
+    int vitVictoire;
+    int avavitVictoire;
 
-        //Accueil
-    
-int xrectLogo;
-int yrectLogo;
-int longLogo;
-int hautLogo;
+            //Accueil
+        
+    int xrectLogo;
+    int yrectLogo;
+    int longLogo;
+    int hautLogo;
 
-int yfond;
-int xdebutjeu;
-int ydebutjeu;
+    int yfond;
+    int xdebutjeu;
+    int ydebutjeu;
 
-int menuXentre;
-int menuXentre2;
-int menuXsortie;
-int menuXsortie2;
-int menuXentre3;
-int menuXentre4;
-int menuY;
-int menuY2;
+    int menuXentre;
+    int menuXentre2;
+    int menuXsortie;
+    int menuXsortie2;
+    int menuXentre3;
+    int menuXentre4;
+    int menuY;
+    int menuY2;
 
-        //Mission
+            //Mission
 
-int xkitty;
-int ykitty;
-int vitesseAssetX;
-int vitesseAssetY;
+    int xkitty;
+    int ykitty;
+    int vitesseAssetX;
+    int vitesseAssetY;
 
-        //Asset Jeux
+            //Asset Jeux
 
-int xAvavie;
-int yAvavie;
-int xAvavie2;
-int yAvavie2;
-int vitesseAvavieY;
-int xAvavitesse;
-int yAvavitesse;
-int xAvavitesse2;
-int yAvavitesse2;
-int xAvavitesse3;
-int yAvavitesse3;
-int timervitesse1;
-int timervitesse2;
-int timervitesse3;
-int timervitesse4;
-int timervitesse5;
-
-
+    int xAvavie;
+    int yAvavie;
+    int xAvavie2;
+    int yAvavie2;
+    int vitesseAvavieY;
+    int xAvavitesse;
+    int yAvavitesse;
+    int xAvavitesse2;
+    int yAvavitesse2;
+    int xAvavitesse3;
+    int yAvavitesse3;
+    int timervitesse1;
+    int timervitesse2;
+    int timervitesse3;
+    int timervitesse4;
+    int timervitesse5;
 
 
 
+/*                                         Fin                                               */
 
-/*////////////////////////////////////////Initialisation des tableaux///////////////////////////////////////*/
+
+
+
+/*////////////////////////////////////////Initialisation des tableaux/////////////////////////*/
 
 void init_tab(){
+    //Tab Histoire 1
 
-        for(int i=0;i<nbcolonne;i++){   //Initialisation du tableau des vies
-        for(int j=0;j<nbligne;j++){
-            if ((j<2 && j>=0)){
-                viebrique[i][j]=2;
-            }
-            else if ((j==2) && (i>=1) && (i<=4)){
-                viebrique[i][j]=3;
-            }
-            else {
-                viebrique[i][j]=1;
-            }
-        }     
-    }   
+
+            for(int i=0;i<nbcolonne;i++){   //Initialisation du tableau des vies
+            for(int j=0;j<nbligne;j++){
+                if ((j<2 && j>=0)){
+                    viebrique[i][j]=2;
+                }
+                else if ((j==2) && (i>=1) && (i<=4)){
+                    viebrique[i][j]=3;
+                }
+                else {
+                    viebrique[i][j]=1;
+                }
+            }     
+        }   
+
+    //Tab Arcade
 
     for(int i=0;i<nbcolonne;i++){   //Initialisation du tableau des vies
         for(int j=0;j<3;j++){
@@ -235,11 +238,13 @@ void init_tab(){
 
 
 
-/*////////////////////////////////////////Initialisation du jeu///////////////////////////////////////*/
+
+
+/*////////////////////////////////////////Initialisation du jeu///////////////////////////////*/
 
 void init_game(){               //mettre votre code d'initialisation ici
 
-/*-----------------------------------------Element de jeux-----------------------------------------*/
+/*-----------------------------------------Element de jeux------------------------------------*/
 
 
     //Initialisation de la Balle
@@ -294,7 +299,7 @@ void init_game(){               //mettre votre code d'initialisation ici
     xtabmulti=0;
 
 
-/*-----------------------------------------Gameplay-----------------------------------------*/
+/*-----------------------------------------Gameplay-------------------------------------------*/
 
     //*************************Tableau Brique Histoire
 
@@ -324,7 +329,7 @@ void init_game(){               //mettre votre code d'initialisation ici
     movex=0;
     movey=0;
 
-/*-----------------------------------------Menu-----------------------------------------*/
+/*-----------------------------------------Menu-----------------------------------------------*/
 
     start=0;
     histoire=0;
@@ -334,7 +339,7 @@ void init_game(){               //mettre votre code d'initialisation ici
     coop=0;
     versus=0;
 
-/*-----------------------------------------Affichage-----------------------------------------*/
+/*-----------------------------------------Affichage------------------------------------------*/
 
 
     //Ecran GameOver
@@ -419,16 +424,10 @@ void init_game(){               //mettre votre code d'initialisation ici
 
 
 
+/*/////////////////////////////////////////Element de jeux\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 
-
-
-/*/////////////////////////////////////////Element de jeux\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
-
-
-
-/*-----------------------------------------BALLE-----------------------------------------*/
-
+/*-----------------------------------------BALLE----------------------------------------------*/
 
 void rebondBall(){              //Rebond de la balle sur la fenetre + Diminution de la barre 
 
@@ -619,8 +618,9 @@ void drawBalltraine2(){
     ball3y=ball2y*1.001;      //Déplacement de la balle hauteur
 }
 
-/*-----------------------------------------BARRE-----------------------------------------*/
 
+
+/*-----------------------------------------BARRE---------------------------------------------*/
 
 void drawBarre(){                   //Dessin de la barre et changement de couleur
 
@@ -729,8 +729,10 @@ void rebondBarre2(){            //Rebond de la barre
 
 }
 
-/*-----------------------------------------Brique-----------------------------------------*/
-   
+
+
+/*-----------------------------------------Brique---------------------------------------------*/
+
 void drawBrick(){              //Dessin des briques, Rebond des briques, Vie et Brique touché
 
 
@@ -877,7 +879,7 @@ void reninitpalier(){          //Mode arcade reinitialise les briques et change 
         }
 }
 
-void moveBricky(){             //Mouvement des briques en arcade solo
+void moveBricky(){
     if (ytabmulti<260 && movey==0){
         ytabmulti=ytabmulti+1;
     }
@@ -893,7 +895,7 @@ void moveBricky(){             //Mouvement des briques en arcade solo
 
 }
 
-void moveBrickmultiy(){        //Mouvement des briques en arcade solo
+void moveBrickmultiy(){
     if (ytabmulti<320 && movey==0){
         ytabmulti=ytabmulti+1;
     }
@@ -911,11 +913,12 @@ void moveBrickmultiy(){        //Mouvement des briques en arcade solo
 
 
 
+
 /*/////////////////////////////////////////Menu et Asset\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 
 
-/*-----------------------------------------Ecran d'accueil-----------------------------------------*/
+/*-----------------------------------------Ecran d'accueil-----------------------------------*/
 
 void drawAccueil(){
     sprite(0, 0,"Asset/fondaccueil.bmp");
@@ -933,7 +936,9 @@ void drawAccueil(){
 
 }
 
-/*-----------------------------------------Choix de mode de jeux-----------------------------------------*/
+
+
+/*-----------------------------------------Choix de mode de jeux-----------------------------*/
 
 void drawMenu(){
     sprite(0, 0,"Asset/fondaccueil.bmp");
@@ -959,10 +964,11 @@ void drawMenu(){
 
 
 
-/*+++++++++++++++++++++++++++++++++++++++Choix histoire+++++++++++++++++++++++++++++++++++++++++++*/
+/*+++++++++++++++++++++++++++++++++++++++Choix histoire++++++++++++++++++++++++++++++++++++++*/
 
 
-/*-----------------------------------------Ecran de mission-----------------------------------------*/
+
+/*-----------------------------------------Ecran de mission----------------------------------*/
 
 void drawMission(){
     sprite(0, 0,"Asset/fondmission.bmp");
@@ -979,7 +985,8 @@ void drawMission(){
 }
 
 
-/*-----------------------------------------GameOver-----------------------------------------*/
+
+/*-----------------------------------------GameOver------------------------------------------*/
 
 void drawGameOver(){
     sprite(xDefaite, 225,"Asset/defaite.bmp");       //225
@@ -1040,7 +1047,8 @@ void drawFinversus(){
 }
 
 
-/*-----------------------------------------Victoire-----------------------------------------*/
+
+/*-----------------------------------------Victoire------------------------------------------*/
 
 void drawVictoire(){
     sprite(xVictoire, 225,"Asset/victoire.bmp");       //225
@@ -1058,6 +1066,7 @@ void drawVictoire(){
 void drawEnding(){
     sprite(0, 0,"Asset/fin.bmp");
 }
+
 
 
 /*-----------------------------------------Background-----------------------------------------*/
@@ -1163,7 +1172,10 @@ void drawScore(){
 }
 
 
-/*+++++++++++++++++++++++++++++++++++++++Choix arcade+++++++++++++++++++++++++++++++++++++++++++*/
+
+/*+++++++++++++++++++++++++++++++++++++++Choix arcade+++++++++++++++++++++++++++++++++++++++++*/
+
+
 
 void drawMenuarcade(){
     sprite(0, 0,"Asset/menuarcade.bmp");
@@ -1250,9 +1262,7 @@ void drawExpliVersus(){
 
 
 
-
-/*/////////////////////////////////////////Mode de Jeu\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
-
+/*+++++++++++++++++++++++++++++++++++++++Mode de Jeu+++++++++++++++++++++++++++++++++++++++++*/
 
 
 
@@ -1397,7 +1407,8 @@ void drawVersus(){
 
 
 
-/*/////////////////////////////////////////Jeu\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+/*/////////////////////////////////////////Jeu\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+
 
 void drawGame(){
 
@@ -1453,7 +1464,7 @@ void drawGame(){
     usleep(1000000 / FPS); // 60 images par seconde | 1000000 = 1 seconde
 }
 
-/*-----------------------------------------Pressage de touche-----------------------------------------*/
+/*-----------------------------------------Pressage de touche-------------------------------*/
 
 void KeyPressed(SDL_Keycode touche){
     /** @brief event.key.keysym.sym renvoi la touche appuyé
@@ -1619,7 +1630,6 @@ void KeyPressed(SDL_Keycode touche){
             break;
     }
 }
-
 
 void joyButtonPressed(){
 }
