@@ -9,6 +9,7 @@ static int window_width = 0;
 static int window_height = 0;
 static char* name = "SDL app";
 
+
 void out(){
     printf("Vous dessinez en dehors de la fenetre\n");
 }
@@ -52,7 +53,8 @@ void init(int windowWidth, int windowHeight) {
         SDL_Log("ERREUR : Init window and renderer > %s\nParametres passes %d , %d\n",SDL_GetError(), windowWidth, windowHeight);
         freeAndTerminate();
     }
-    SDL_SetWindowTitle(window, "Brick Breaker");
+    SDL_SetWindowTitle(window, "CassBreaker");
+    //SDL_SetWindowFullscreen (window,SDL_WINDOW_FULLSCREEN_DESKTOP);
 }
 
 void freeWindow() {

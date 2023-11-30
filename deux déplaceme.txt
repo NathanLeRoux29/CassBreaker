@@ -44,4 +44,326 @@ void KeyReleased(SDL_Keycode touche) {
     // Mettez à jour l'état de la touche relâchée
     keyState[touche] = 0;
 
-    // Ajoutez votre logique de gestion des touches ici
+    // Ajoutez votre logique de gestion des touches i
+
+
+
+
+
+
+
+
+
+void KeyPressed(SDL_Keycode touche) {
+    // Mettez à jour l'état de la touche appuyée
+    keyState[touche] = 1;
+            if (keyState [SDLK_q] && PauseGame==1){                   //touche q appuyé //Deplacement Barre sur la gauche
+            printf("Q\n");
+                if ((xBarre > largFenetre) && (PauseGame==1)){                       
+                    xBarre=xBarre-deplTouche;
+                }
+                else if (xBarre <= largFenetre){
+                    xBarre=largFenetre;
+                }
+            }
+
+            if (keyState [SDLK_d] && PauseGame==1){                   //touche q appuyé //Deplacement Barre sur la gauche
+            printf("D\n");
+                if ((xBarre < WINDOW_WIDTH-longBarre-largFenetre) && (PauseGame==1)){      
+                    xBarre=xBarre+deplTouche;
+                }
+                else if((xBarre >= WINDOW_WIDTH-longBarre-largFenetre) && (PauseGame==1)){
+                    xBarre = WINDOW_WIDTH-longBarre-largFenetre;
+                }
+            }
+            
+            if (keyState [SDLK_LEFT] && PauseGame==1){                   //touche q appuyé //Deplacement Barre sur la gauche
+            printf("B\n");
+                if ((xBarre2 > largFenetre) && (PauseGame==1)){                       
+                    xBarre2=xBarre2-deplTouche;
+                }
+                else if (xBarre2 <= largFenetre){
+                    xBarre2=largFenetre;
+                }
+            }
+    
+            if (keyState [SDLK_RIGHT] && PauseGame==1){                   //touche q appuyé //Deplacement Barre sur la gauche
+            printf("N\n");
+                if ((xBarre2 < WINDOW_WIDTH-longBarre2-largFenetre) && (PauseGame==1)){      
+                    xBarre2=xBarre2+deplTouche;
+                }
+                else if((xBarre2 >= WINDOW_WIDTH-longBarre2-largFenetre) && (PauseGame==1)){
+                    xBarre2 = WINDOW_WIDTH-longBarre2-largFenetre;
+                }
+            }
+
+            if (keyState [SDLK_ESCAPE] && PauseGame==1){                   //touche q appuyé //Deplacement Barre sur la gauche
+            printf("N\n");
+                freeAndTerminate();
+            }
+
+            if (keyState [SDLK_v] && PauseGame==1){                   //touche q appuyé //Deplacement Barre sur la gauche
+            printf("V\n");
+                init_game();
+                init_tab();
+            }
+
+            if (keyState [SDLK_p] && PauseGame==1){                   //touche q appuyé //Deplacement Barre sur la gauche
+            printf("P\n");
+                PauseGame=PauseGame*(-1);
+            }
+
+            if (keyState [SDLK_SPACE]){                   //touche q appuyé //Deplacement Barre sur la gauche
+                if ((start==0) && (histoire==0) && (arcade==0) && (multi==0) && (solo==0) && (coop==0) && (versus==0)){
+                    printf("space\n");
+                    start=start+1;
+                    printf("start %d\n",start);
+                    
+                    }
+                else if (histoire>=1 && (arcade==0) && (multi==0) && (solo==0) && (coop==0) && (versus==0)){
+                    printf("space\n");
+                    histoire=histoire+1;
+                    printf("histoire %d\n",histoire);
+                }
+
+                else if ((arcade==0) && (histoire==0) && (multi==0) && (solo==0) && (coop==0) && (versus==0)){
+                    printf("space\n");
+                    arcade=arcade+1;
+                    printf("arcade %d\n",arcade);
+                }
+
+                else if ((histoire==0) && (arcade==1) && (multi==0) && (solo>=1) && (versus==0) && (coop==0)){
+                    printf("space\n");
+                    solo=solo+1;
+                    printf("solo %d\n",solo);
+                }
+
+                else if((start==1) && (histoire==0) && (arcade==1) && (multi==1) && (solo==0) && (coop>=1)){
+                    printf("space\n");
+                    coop=coop+1;
+                    printf("coop %d\n",coop);
+                }
+
+                else if ((start==1) && (histoire==0) && (arcade==1) && (multi==1) && (solo==0) && (versus>=1)){
+                    printf("space\n");
+                    versus=versus+1;
+                    printf("versus %d\n",versus);
+                }
+            }
+
+            if (keyState [SDLK_a]){
+                if ((histoire==0) && (start==1) && (arcade==0) ){
+                    printf("A\n");
+                    histoire=histoire+1;
+                    printf("histoire %d\n",histoire);
+                }
+                else if ((histoire==0) && (arcade==1) && (multi==0) && (solo==0)){
+                    printf("E\n");
+                    solo=solo+1;
+                    printf("solo %d\n",solo);
+                }
+                else if((start==1) && (histoire==0) && (arcade==1) && (multi==1) && (solo==0) && (coop==0)){
+                    printf("E\n");
+                    coop=coop+1;
+                    printf("coop %d\n",coop);
+                }
+            }
+
+            if (keyState [SDLK_e]){
+                if (arcade==0){
+                    printf("E\n");
+                    arcade=arcade+1;
+                    printf("arcade %d\n",arcade);
+                }
+            else if ((arcade==1) && (multi==0)){
+                    printf("E\n");
+                    multi=multi+1;
+                    printf("multi %d\n",multi);
+                }
+            else if ((start==1) && (histoire==0) && (arcade==1) && (multi==1) && (solo==0) && (versus==0)){
+                    printf("E\n");
+                    versus=versus+1;
+                    printf("versus %d\n",versus);
+                }
+            }
+
+}
+
+
+void KeyReleased(SDL_Keycode touche) {
+    // Mettez à jour l'état de la touche relâchée
+    keyState[touche] = 0;
+}
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//void KeyPressed(SDL_Keycode touche){
+    /** @brief event.key.keysym.sym renvoi la touche appuyé
+     *
+     */
+    switch (touche) {
+        // Voir doc SDL_Keycode pour plus de touches https://wiki.libsdl.org/SDL_Keycode
+        // ici exemple ou appuyer sur les touches Q | D modifie x (position du carré dans drawGame())
+
+//Deplacement Barre 1
+
+        case SDLK_q:                    //touche q appuyé //Deplacement Barre sur la gauche
+            printf("Q\n");
+                if ((xBarre > largFenetre) && (PauseGame==1)){                       
+                    xBarre=xBarre-deplTouche;
+                }
+                else if (xBarre <= largFenetre){
+                    xBarre=largFenetre;
+                }
+                else;
+            break;
+
+
+        case SDLK_d:                   //touche d appuyé //Deplacement Barre sur la droite
+            printf("D\n");
+            if ((xBarre < WINDOW_WIDTH-longBarre-largFenetre) && (PauseGame==1)){      
+                    xBarre=xBarre+deplTouche;
+            }
+            else if((xBarre >= WINDOW_WIDTH-longBarre-largFenetre) && (PauseGame==1)){
+                xBarre = WINDOW_WIDTH-longBarre-largFenetre;
+            }
+                else;
+            break;
+
+//Deplacement Barre 2
+
+        case SDLK_LEFT:                    //touche b appuyé //Deplacement Barre sur la gauche
+            printf("B\n");
+                if ((xBarre2 > largFenetre) && (PauseGame==1)){                       
+                    xBarre2=xBarre2-deplTouche;}
+            else if (xBarre2 <= largFenetre){
+                    xBarre2=largFenetre;
+                }
+                else;
+            break;
+
+
+        case SDLK_RIGHT:                   //touche dn appuyé //Deplacement Barre sur la droite
+            printf("N\n");
+            if ((xBarre2 < WINDOW_WIDTH-longBarre2-largFenetre) && (PauseGame==1)){      
+                xBarre2=xBarre2+deplTouche;
+            }
+            else if((xBarre2 >= WINDOW_WIDTH-longBarre2-largFenetre) && (PauseGame==1)){
+                xBarre2 = WINDOW_WIDTH-longBarre2-largFenetre;
+            }
+                else;
+            break;
+
+//Autre
+
+        case SDLK_ESCAPE:             //touche ESC appuyé //Ferme la fenetre arrete le jeu
+            freeAndTerminate();
+            break;
+
+
+        case SDLK_v:                  //touche v appuyé //Restart du jeu
+            printf("V\n");
+            init_game();
+            init_tab();
+            break;
+
+
+        case SDLK_p:                  //touche p appuyé //Met pause au jeu
+            printf("p\n");
+            PauseGame=PauseGame*(-1);
+            break;
+
+//Deplacement Menu
+
+        case SDLK_SPACE:               //touche Espace appuyé //Lance le jeu
+            if ((start==0) && (histoire==0) && (arcade==0) && (multi==0) && (solo==0) && (coop==0) && (versus==0)){
+                printf("space\n");
+                start=start+1;
+                printf("start %d\n",start);
+                
+                }
+            else if (histoire>=1 && (arcade==0) && (multi==0) && (solo==0) && (coop==0) && (versus==0)){
+                printf("space\n");
+                histoire=histoire+1;
+                printf("histoire %d\n",histoire);
+            }
+
+            else if ((arcade==0) && (histoire==0) && (multi==0) && (solo==0) && (coop==0) && (versus==0)){
+                printf("space\n");
+                arcade=arcade+1;
+                printf("arcade %d\n",arcade);
+            }
+
+            else if ((histoire==0) && (arcade==1) && (multi==0) && (solo>=1) && (versus==0) && (coop==0)){
+                printf("space\n");
+                solo=solo+1;
+                printf("solo %d\n",solo);
+            }
+
+            else if((start==1) && (histoire==0) && (arcade==1) && (multi==1) && (solo==0) && (coop>=1)){
+                printf("space\n");
+                coop=coop+1;
+                printf("coop %d\n",coop);
+            }
+
+            else if ((start==1) && (histoire==0) && (arcade==1) && (multi==1) && (solo==0) && (versus>=1)){
+                printf("space\n");
+                versus=versus+1;
+                printf("versus %d\n",versus);
+            }
+
+            break;
+
+        case SDLK_a:               //touche Espace appuyé //Lance le jeu
+            if ((histoire==0) && (start==1) && (arcade==0) ){
+                printf("A\n");
+                histoire=histoire+1;
+                printf("histoire %d\n",histoire);
+            }
+            else if ((histoire==0) && (arcade==1) && (multi==0) && (solo==0)){
+                printf("E\n");
+                solo=solo+1;
+                printf("solo %d\n",solo);
+            }
+            else if((start==1) && (histoire==0) && (arcade==1) && (multi==1) && (solo==0) && (coop==0)){
+                printf("E\n");
+                coop=coop+1;
+                printf("coop %d\n",coop);
+            }
+            break;
+
+        case SDLK_e:               //touche Espace appuyé //Lance le jeu
+            if (arcade==0){
+                printf("E\n");
+                arcade=arcade+1;
+                printf("arcade %d\n",arcade);
+            }
+            else if ((arcade==1) && (multi==0)){
+                printf("E\n");
+                multi=multi+1;
+                printf("multi %d\n",multi);
+            }
+            else if ((start==1) && (histoire==0) && (arcade==1) && (multi==1) && (solo==0) && (versus==0)){
+                printf("E\n");
+                versus=versus+1;
+                printf("versus %d\n",versus);
+            }
+
+            break;
+
+        case SDLK_x:                   //touche x start -1
+            printf("x\n");
+            start=start-1;
+            break;
+
+
+        default:
+            break;
+}

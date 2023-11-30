@@ -102,3 +102,4 @@ void MouseClick(int MouseX,int MouseY)
 	}
 }
 
+TRajectoire en fonction de la ou la balle tape sur la barre (droite - droite / gauche - gauche)

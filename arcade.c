@@ -96,7 +96,7 @@
     int movex;
     int movey;
 
-    
+    int keyState[SDL_NUM_SCANCODES] = {0};
 
 /*-----------------------------------------Menu----------------------------------------------*/
 
@@ -271,11 +271,11 @@ void init_game(){               //mettre votre code d'initialisation ici
 
     //*************************Tableau Brique Histoire
 
-    nbBrique=(nbligne*nbcolonne)+(nbcolonne*2)+(2*4);     //Vie Brique
+    nbBrique=(nbligne*nbcolonne)+(nbcolonne*2)+(2*5);     //Vie Brique
     briqueTouche=0;                                       //Nb brique touché
 
 
-    nbBriqueMulti=((3*(nbcolonne-2))+(1*4)+(2));                       //Vie Brique Multi
+    nbBriqueMulti=((3*(nbcolonne-2))+(1*nbcolonne)+(3));                       //Vie Brique Multi
     briqueToucheMulti=0;                                   //Nb brique touché Multi
 
     //GamePlay
@@ -291,6 +291,7 @@ void init_game(){               //mettre votre code d'initialisation ici
     accelPalier=0;
     movex=0;
     movey=0;
+
 
 /*-----------------------------------------Menu-----------------------------------------------*/
 
@@ -649,6 +650,7 @@ void drawBalltraine2(){
 
 void drawBarre(){                   //Dessin de la barre et changement de couleur
 
+
     if(tentative==1){
         changeColor(114, 246, 82);
         drawRect(xBarre,yBarre,longBarre,hauteurBarre);
@@ -663,6 +665,8 @@ void drawBarre(){                   //Dessin de la barre et changement de couleu
         changeColor(246, 82, 82);
         drawRect(xBarre,yBarre,longBarre,hauteurBarre);
     }
+
+    drawRect(xBarre+((longBarre/2)-2),yBarre,4,hauteurBarre);
 
 
 }
@@ -710,9 +714,28 @@ void rebondBarre (){            //Rebond de la barre
                     //haut
 
                 if(((bally>=yBarre-rayonBall) && (bally<yBarre)) &&
-                    ((ballx<=xBarre+longBarre) && (ballx>=xBarre)) && (vitesseY>0)){
+                    ((ballx<=xBarre+(longBarre/2)) && (ballx>=xBarre)) && (vitesseY>0) && (vitesseX>0)){
+                    vitesseY=vitesseY*(-1);
+                    vitesseX=vitesseX*(-1);
+                }
+
+                else if(((bally>=yBarre-rayonBall) && (bally<yBarre)) &&
+                    ((ballx<=xBarre+(longBarre/2)) && (ballx>=xBarre)) && (vitesseY>0) && (vitesseX<0)){
                     vitesseY=vitesseY*(-1);
                 }
+
+                else if(((bally>=yBarre-rayonBall) && (bally<yBarre)) &&
+                    ((ballx<=xBarre+longBarre) && (ballx>=xBarre+(longBarre/2))) && (vitesseY>0) && (vitesseX<0)){
+                    vitesseY=vitesseY*(-1);
+                    vitesseX=vitesseX*(-1);
+                }
+
+                else if(((bally>=yBarre-rayonBall) && (bally<yBarre)) &&
+                    ((ballx<=xBarre+longBarre) && (ballx>=xBarre+(longBarre/2))) && (vitesseY>0) && (vitesseX>0)){
+                    vitesseY=vitesseY*(-1);
+                }
+
+
 
                     //gauche
 
@@ -734,9 +757,35 @@ void rebondBarre2(){            //Rebond de la barre
                     //bas
 
                 if(((bally<=yBarre2+hauteurBarre2+rayonBall) && (bally>yBarre2)) &&
+                    ((ballx<=xBarre2+(longBarre2/2)) && (ballx>=xBarre2)) && (vitesseY<0) && (vitesseX>0)){
+                    vitesseY=vitesseY*(-1);
+                    vitesseX=vitesseX*(-1);
+                }
+
+                else if(((bally<=yBarre2+hauteurBarre2+rayonBall) && (bally>yBarre2)) &&
+                    ((ballx<=xBarre2+(longBarre2/2)) && (ballx>=xBarre2)) && (vitesseY<0) && (vitesseX<0)){
+                    vitesseY=vitesseY*(-1);
+                }
+
+                else if(((bally<=yBarre2+hauteurBarre2+rayonBall) && (bally>yBarre2)) &&
+                    ((ballx<=xBarre2+longBarre2) && (ballx>=xBarre2+(longBarre2/2))) && (vitesseY<0) && (vitesseX<0)){
+                    vitesseY=vitesseY*(-1);
+                    vitesseX=vitesseX*(-1);
+                }
+
+                else if(((bally<=yBarre2+hauteurBarre2+rayonBall) && (bally>yBarre2)) &&
+                    ((ballx<=xBarre2+longBarre2) && (ballx>=xBarre2+(longBarre2/2))) && (vitesseY<0) && (vitesseX>0)){
+                    vitesseY=vitesseY*(-1);
+                }
+
+////////////////////////////////////////////////////
+       /*         if(((bally<=yBarre2+hauteurBarre2+rayonBall) && (bally>yBarre2)) &&
                     ((ballx<=xBarre2+longBarre2) && (ballx>=xBarre2)) && (vitesseY<0)){
                     vitesseY=vitesseY*(-1);
                 }
+        */
+////////////////////////////////////////////////////
+
 
                     //gauche
 
@@ -1547,7 +1596,7 @@ void KeyPressed(SDL_Keycode touche){
                 else;
             break;
 
-//Deplacement Barre 2
+//Deplacement Barre 2   
 
         case SDLK_LEFT:                    //touche b appuyé //Deplacement Barre sur la gauche
             printf("B\n");
@@ -1678,6 +1727,8 @@ void KeyPressed(SDL_Keycode touche){
             break;
     }
 }
+
+
 
 void joyButtonPressed(){
 }
